@@ -30,5 +30,8 @@ public class TraiteurFichier {
 
     }
 
+    public void fichierVersLowerCase() {
+
+    }
 
 }
