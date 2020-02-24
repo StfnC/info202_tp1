@@ -6,16 +6,7 @@ public class TraiteurFichier {
     private String nomFichier;
 
     public TraiteurFichier(String nomFichier) {
-        // TODO -S'assurer que le fichier existe, maybe le placer dans main
-        /*
-        File fichier = new File(nomFichier);
-        if (fichier.exists()) {
-            ...
-        } else {
-            ...
-        }
-        */
-        this.nomFichier = nomFichier;
+
     }
 
     public int nombreLignesFichier() {

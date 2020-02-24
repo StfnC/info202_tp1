@@ -1,8 +1,17 @@
 package ca.qc.bdeb.info202.tp1;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class Tp1 {
+
+    public static final String NOM_FICHIER_GRILLE = "grille.txt";
+    public static final String NOM_FICHIER_MOTS = "mots.txt";
+
+    public static boolean verifierQueFichierExiste(String nomFichier) {
+        File fichier = new File(nomFichier);
+        return fichier.exists();
+    }
 
     public static void main(String[] args) {
         String mot = "allo";
