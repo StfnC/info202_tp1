@@ -1,6 +1,6 @@
 package ca.qc.bdeb.info202.tp1;
 
-import java.io.File;
+import java.io.*;
 
 public class TraiteurFichier {
     private String nomFichier;
@@ -16,6 +16,49 @@ public class TraiteurFichier {
         }
         */
         this.nomFichier = nomFichier;
+    }
+
+    public int nombreLignesFichier() {
+        int nbLignes = 0;
+        try {
+            FileReader fr = new FileReader(this.nomFichier);
+            BufferedReader br = new BufferedReader(fr);
+
+            String ligne = br.readLine();
+            while (ligne != null) {
+                nbLignes++;
+                ligne = br.readLine();
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Wrong filename lmao");
+        } catch (IOException ioe) {
+            System.out.println("I don't even know lol");
+        }
+        return nbLignes;
+    }
+
+    public String[][] fichierVersMatrice() {
+        int nbLignesDansFichier = this.nombreLignesFichier();
+        String[][] matriceLignes = new String[nbLignesDansFichier][1];
+
+        try {
+            FileReader fr = new FileReader(this.nomFichier);
+            BufferedReader br = new BufferedReader(fr);
+
+            String ligne;
+            int indexLigne = 0;
+            do {
+                ligne = br.readLine();
+
+            } while (ligne != null);
+
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Wrong filename lmao");
+        } catch (IOException ioe) {
+            System.out.println("I don't even know lol");
+        }
+
+        return matriceLignes;
     }
 
     public String getNomFichier() {
