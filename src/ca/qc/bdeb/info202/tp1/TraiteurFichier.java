@@ -6,7 +6,7 @@ public class TraiteurFichier {
     private String nomFichier;
 
     public TraiteurFichier(String nomFichier) {
-        // TODO -S'assurer que le fichier existe
+        // TODO -S'assurer que le fichier existe, maybe le placer dans main
         /*
         File fichier = new File(nomFichier);
         if (fichier.exists()) {
@@ -37,9 +37,9 @@ public class TraiteurFichier {
         return nbLignes;
     }
 
-    public String[][] fichierVersMatrice() {
+    public char[][] fichierVersMatrice() {
         int nbLignesDansFichier = this.nombreLignesFichier();
-        String[][] matriceLignes = new String[nbLignesDansFichier][1];
+        char[][] matriceLignes = new char[nbLignesDansFichier][nbLignesDansFichier];
 
         try {
             FileReader fr = new FileReader(this.nomFichier);
@@ -49,7 +49,10 @@ public class TraiteurFichier {
             int indexLigne = 0;
             do {
                 ligne = br.readLine();
-
+                if (ligne != null) {
+                    matriceLignes[indexLigne] = ligne.toCharArray();
+                    indexLigne++;
+                }
             } while (ligne != null);
 
         } catch (FileNotFoundException fnfe) {
