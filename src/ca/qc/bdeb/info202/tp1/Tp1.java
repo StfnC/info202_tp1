@@ -94,11 +94,14 @@ public class Tp1 {
         System.out.println(tm.validerSiSeulementLettres());
         System.out.println(tg.validerSiSeulementLettres());
 
-        tg.fichierVersMinuscules();
+        tg.tableauVersMinuscules();
 
         for (String ligneGrille : tg.getTableauLignes()) {
             System.out.println(ligneGrille);
         }
+
+        System.out.println(tg.validerCarree());
+        System.out.println(tm.validerAuMoinsUnMot());
 
     }
 }

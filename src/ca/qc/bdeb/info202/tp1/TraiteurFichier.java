@@ -29,7 +29,7 @@ public abstract class TraiteurFichier {
         return seulementLettres;
     }
 
-    public void fichierVersMinuscules() {
+    public void tableauVersMinuscules() {
         for (int i = 0; i < this.nbLignes; i++) {
             this.tableauLignes[i] = this.tableauLignes[i].toLowerCase();
         }
@@ -37,6 +37,10 @@ public abstract class TraiteurFichier {
 
     public String[] getTableauLignes() {
         return this.tableauLignes;
+    }
+
+    public int getNbLignes() {
+        return nbLignes;
     }
 
 }

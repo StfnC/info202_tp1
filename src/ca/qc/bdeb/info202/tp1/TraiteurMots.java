@@ -6,8 +6,8 @@ public class TraiteurMots extends TraiteurFichier {
         super(matriceLignes);
     }
 
-    public void validerAuMoinsUnMot() {
-
+    public boolean validerAuMoinsUnMot() {
+        return this.getTableauLignes()[0].length() > 1;
     }
 
 }

@@ -6,8 +6,17 @@ public class TraiteurGrille extends TraiteurFichier {
         super(matriceLignes);
     }
 
-    public void validerCarree() {
+    // TODO: validerCarree est la derniere validation a faire, il faut enlever les espaces et s'assurer qu'il y a juste des lettres avant
 
+    public boolean validerCarree() {
+        boolean grilleCarree = false;
+        for (String ligne : this.getTableauLignes()) {
+            grilleCarree = ligne.length() == this.getNbLignes();
+            if (!grilleCarree) {
+                return false;
+            }
+        }
+        return grilleCarree;
     }
 
 }
