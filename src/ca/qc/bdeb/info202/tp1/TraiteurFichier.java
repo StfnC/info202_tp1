@@ -20,6 +20,7 @@ public abstract class TraiteurFichier {
     }
 
     public boolean validerSiSeulementLettres() {
+        // TODO: Maybe refactor this method
         boolean seulementLettres = true;
         for (String ligne : this.tableauLignes) {
             char[] caracteresLigne = ligne.toCharArray();

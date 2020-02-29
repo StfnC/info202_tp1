@@ -6,6 +6,7 @@ public class Tp1 {
 
     public static final String NOM_FICHIER_GRILLE = "grille.txt";
     public static final String NOM_FICHIER_MOTS = "mots.txt";
+    private static final String NOM_FICHIER_INTRUS = "intrus.txt";
 
     public static boolean verifierQueFichierExiste(String nomFichier) {
         File fichier = new File(nomFichier);
@@ -19,18 +20,22 @@ public class Tp1 {
             BufferedReader br = new BufferedReader(fr);
 
             String ligne;
+
             do {
                 ligne = br.readLine();
                 if (ligne != null) {
                     nbLignes++;
                 }
             } while (ligne != null);
+
             br.close();
+
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
             System.out.println("IO Exception");
         }
+
         return nbLignes;
     }
 
@@ -44,14 +49,19 @@ public class Tp1 {
 
             String ligne;
             int indexLigne = 0;
+
             do {
                 ligne = br.readLine();
+
                 if (ligne != null) {
                     tableauLignes[indexLigne] = ligne;
                     indexLigne++;
                 }
+
             } while (ligne != null);
+
             br.close();
+
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
@@ -60,6 +70,34 @@ public class Tp1 {
 
         return tableauLignes;
     }
+
+    public static void creerFichierIntrus(String[] tableauIntrus) {
+        try {
+            FileOutputStream fo = new FileOutputStream(NOM_FICHIER_INTRUS, false);
+            PrintWriter pw = new PrintWriter(fo);
+
+            if (tableauIntrus[0] == null) {
+                pw.println("Aucun intrus");
+            } else {
+                String motIntrus;
+                int indexIntrus = 0;
+
+                do {
+                    motIntrus = tableauIntrus[indexIntrus];
+
+                    if (motIntrus != null) {
+                        pw.println(motIntrus);
+                        indexIntrus++;
+                    }
+                } while (motIntrus != null);
+            }
+            pw.close();
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("File Not Found Exception");
+        }
+    }
+
+    // TODO: NE PAS OUBLIER DE FAIRE AUTO-EVALUATION DU PROGRAMME
 
     public static void main(String[] args) {
         // TODO: Test all the edge cases
@@ -80,19 +118,17 @@ public class Tp1 {
                 if (traiteurMots.validerMots()) {
                     System.out.println("Validation de la liste de mots...OK");
 
-                    traiteurGrille.traiterGrillePourIntrus(traiteurMots);
+                    String[] tableauIntrus = traiteurGrille.trouverIntrus(traiteurMots);
+                    creerFichierIntrus(tableauIntrus);
                     System.out.println("Recherche des intrus...OK\n" +
                             "Les intrus trouvés sont dans le fichier intrus.txt\n" +
                             "Traitement terminé");
-
                 } else {
                     System.out.println("La liste de mots n'est pas valide");
                 }
-
             } else {
                 System.out.println("La grille n'est pas valide");
             }
-
         } else {
             System.out.println("Un des fichiers n'existe pas");
         }
