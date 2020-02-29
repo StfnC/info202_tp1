@@ -63,47 +63,38 @@ public class Tp1 {
 
     public static void main(String[] args) {
         // TODO: Test all the edge cases
-        String mot = "allo";
-        int tailleMot = mot.length();
-        int ligne = 0;
-        int colonne = 0;
-        int tailleGrille = 0;
+        if (verifierQueFichierExiste(NOM_FICHIER_GRILLE) && verifierQueFichierExiste(NOM_FICHIER_MOTS)) {
+            System.out.println("Démarage");
 
-        String[] grille = fichierVersTableau(NOM_FICHIER_GRILLE);
-        String[] mots = fichierVersTableau(NOM_FICHIER_MOTS);
+            String[] tableauGrille = fichierVersTableau(NOM_FICHIER_GRILLE);
+            TraiteurGrille traiteurGrille = new TraiteurGrille(tableauGrille);
+            System.out.println("Chargement de la grille...OK");
 
-        TraiteurGrille tg = new TraiteurGrille(grille);
-        TraiteurMots tm = new TraiteurMots(mots);
+            if (traiteurGrille.validerGrille()) {
+                System.out.println("Validation de la grille...OK");
 
-        for (String ligneGrille : tg.getTableauLignes()) {
-            System.out.println(ligneGrille);
+                String[] tableauMots = fichierVersTableau(NOM_FICHIER_MOTS);
+                TraiteurMots traiteurMots = new TraiteurMots(tableauMots);
+                System.out.println("Chargement de la liste de mots...OK");
+
+                if (traiteurMots.validerMots()) {
+                    System.out.println("Validation de la liste de mots...OK");
+
+                    traiteurGrille.traiterGrillePourIntrus(traiteurMots);
+                    System.out.println("Recherche des intrus...OK\n" +
+                            "Les intrus trouvés sont dans le fichier intrus.txt\n" +
+                            "Traitement terminé");
+
+                } else {
+                    System.out.println("La liste de mots n'est pas valide");
+                }
+
+            } else {
+                System.out.println("La grille n'est pas valide");
+            }
+
+        } else {
+            System.out.println("Un des fichiers n'existe pas");
         }
-        System.out.println();
-
-        tm.enleverEspaces();
-        tg.enleverEspaces();
-
-        for (String ligneGrille : tg.getTableauLignes()) {
-            System.out.println(ligneGrille);
-        }
-
-        System.out.println(tm.validerSiSeulementLettres());
-        System.out.println(tg.validerSiSeulementLettres());
-
-        tg.tableauVersMinuscules();
-
-        for (String ligneGrille : tg.getTableauLignes()) {
-            System.out.println(ligneGrille);
-        }
-
-        System.out.println(tg.validerCarree());
-        System.out.println(tm.validerAuMoinsUnMot());
-
-        tg.creerMatriceCaracteresGrille();
-        System.out.println(tg.validerGrille() + " " + tm.validerMots());
-
-        System.out.println(tg.trouverMotDansGrille("courge"));
-
-        tg.traiterGrillePourIntrus(tm);
     }
 }

@@ -11,6 +11,8 @@ public class TraiteurGrille extends TraiteurFichier {
 
     public TraiteurGrille(String[] tableauLignes) {
         super(tableauLignes);
+
+        creerMatriceCaracteresGrille();
     }
 
     public boolean validerGrille() {

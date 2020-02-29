@@ -21,7 +21,8 @@ public class TraiteurMots extends TraiteurFichier {
     }
 
     public boolean validerAuMoinsUnMot() {
-        return this.getTableauLignes()[0].length() > 1;
+        // Le fichier contient un mot s'il n'est pas vide et si la 1ere ligne contient plus d'une lettre
+        return (this.getTableauLignes().length > 0 && this.getTableauLignes()[0].length() > 1);
     }
 
 }
