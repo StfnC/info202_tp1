@@ -15,12 +15,24 @@ public abstract class TraiteurFichier {
         }
     }
 
-    public void validerSiSeulementLettres() {
-
+    public boolean validerSiSeulementLettres() {
+        boolean seulementLettres = true;
+        for (String ligne : this.tableauLignes) {
+            char[] caracteresLigne = ligne.toCharArray();
+            for (char caractere : caracteresLigne) {
+                seulementLettres = Character.isLetter(caractere);
+                if (!seulementLettres) {
+                    return false;
+                }
+            }
+        }
+        return seulementLettres;
     }
 
-    public void fichierVersLowerCase() {
-
+    public void fichierVersMinuscules() {
+        for (int i = 0; i < this.nbLignes; i++) {
+            this.tableauLignes[i] = this.tableauLignes[i].toLowerCase();
+        }
     }
 
     public String[] getTableauLignes() {

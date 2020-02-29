@@ -91,5 +91,14 @@ public class Tp1 {
         boolean diagBasGaucheVersHautDroitePossible = ((ligne + 1) - tailleMot >= 0 && colonne + tailleMot <= tailleGrille);
         boolean diagHautDroiteVersBasGauchePossible = (ligne + tailleMot <= tailleGrille && (colonne + 1) - tailleMot >= 0);
 
+        System.out.println(tm.validerSiSeulementLettres());
+        System.out.println(tg.validerSiSeulementLettres());
+
+        tg.fichierVersMinuscules();
+
+        for (String ligneGrille : tg.getTableauLignes()) {
+            System.out.println(ligneGrille);
+        }
+
     }
 }
