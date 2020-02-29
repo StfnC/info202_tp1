@@ -1,7 +1,6 @@
 package ca.qc.bdeb.info202.tp1;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class Tp1 {
 
@@ -19,43 +18,25 @@ public class Tp1 {
             FileReader fr = new FileReader(nomFichier);
             BufferedReader br = new BufferedReader(fr);
 
-            String ligne = br.readLine();
-            while (ligne != null) {
-                nbLignes++;
+            String ligne;
+            do {
                 ligne = br.readLine();
-            }
+                if (ligne != null) {
+                    nbLignes++;
+                }
+            } while (ligne != null);
             br.close();
         } catch (FileNotFoundException fnfe) {
-            System.out.println("File not found");
+            System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
-            System.out.println("I don't even know lol");
+            System.out.println("IO Exception");
         }
         return nbLignes;
     }
 
-    public static int trouverLigneLaPlusLongueDansFichier(String nomFichier) {
-        int tailleLignePlusLongue = 0;
-        try {
-            FileReader fr = new FileReader(nomFichier);
-            BufferedReader br = new BufferedReader(fr);
-
-            String ligne = "";
-            do {
-                ligne = br.readLine();
-
-            } while (ligne != null);
-
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("File not found excepion");
-        } catch (IOException ioe) {
-            System.out.println("IO exception");
-        }
-        return tailleLignePlusLongue;
-    }
-
-    public static String[][] fichierVersMatrice(String nomFichier) {
+    public static String[] fichierVersTableau(String nomFichier) {
         int nbLignesDansFichier = nombreLignesFichier(nomFichier);
-        String[][] matriceLignes = new String[nbLignesDansFichier][1];
+        String[] tableauLignes = new String[nbLignesDansFichier];
 
         try {
             FileReader fr = new FileReader(nomFichier);
@@ -66,18 +47,18 @@ public class Tp1 {
             do {
                 ligne = br.readLine();
                 if (ligne != null) {
-                    matriceLignes[indexLigne][indexLigne] = ligne;
+                    tableauLignes[indexLigne] = ligne;
                     indexLigne++;
                 }
             } while (ligne != null);
             br.close();
         } catch (FileNotFoundException fnfe) {
-            System.out.println("Wrong filename lmao");
+            System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
-            System.out.println("I don't even know lol");
+            System.out.println("IO Exception");
         }
 
-        return matriceLignes;
+        return tableauLignes;
     }
 
     public static void main(String[] args) {
@@ -87,22 +68,28 @@ public class Tp1 {
         int colonne = 0;
         int tailleGrille = 0;
 
-        String[][] grille = fichierVersMatrice(NOM_FICHIER_GRILLE);
+        String[] grille = fichierVersTableau(NOM_FICHIER_GRILLE);
+        String[] mots = fichierVersTableau(NOM_FICHIER_MOTS);
 
         TraiteurGrille tg = new TraiteurGrille(grille);
+        TraiteurMots tm = new TraiteurMots(mots);
 
-        for (int i = 0; i < grille.length; i++) {
-            for (int j = 0; j < grille[0].length; j++) {
-                System.out.print(grille[i][j]);
-            }
-            System.out.println();
+        for (String ligneGrille : tg.getTableauLignes()) {
+            System.out.println(ligneGrille);
+        }
+        System.out.println();
+
+        tm.enleverEspaces();
+        tg.enleverEspaces();
+
+        for (String ligneGrille : tg.getTableauLignes()) {
+            System.out.println(ligneGrille);
         }
 
         boolean diagHautGaucheVersBasDroitePossible = (ligne + tailleMot <= tailleGrille && colonne + tailleMot <= tailleGrille);
         boolean diagBasDroiteVersHautGauchePossible = ((ligne + 1) - tailleMot >= 0 && (colonne + 1) - tailleMot >= 0);
         boolean diagBasGaucheVersHautDroitePossible = ((ligne + 1) - tailleMot >= 0 && colonne + tailleMot <= tailleGrille);
         boolean diagHautDroiteVersBasGauchePossible = (ligne + tailleMot <= tailleGrille && (colonne + 1) - tailleMot >= 0);
-
 
     }
 }

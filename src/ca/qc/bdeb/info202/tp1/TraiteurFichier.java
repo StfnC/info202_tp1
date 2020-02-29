@@ -1,24 +1,18 @@
 package ca.qc.bdeb.info202.tp1;
 
-public class TraiteurFichier {
-    private String[][] matriceLignes;
+public abstract class TraiteurFichier {
+    private String[] tableauLignes;
+    private int nbLignes;
 
-    public TraiteurFichier(String[][] matriceLignes) {
-        this.matriceLignes = matriceLignes;
-        // TODO Changer la class pour qu'elle prenne une matrice au lieu d'un fichier
-
+    public TraiteurFichier(String[] tableauLignes) {
+        this.tableauLignes = tableauLignes;
+        this.nbLignes = tableauLignes.length;
     }
 
-    /*
-    To trim trailing spaces in front and after String
-        String ligne="  allo   ";
-        System.out.println("longueur ligne="+ligne.length());
-        ligne=ligne.trim();
-        System.out.println("longueur ligne="+ligne.length());
-     */
-
     public void enleverEspaces() {
-
+        for (int indexLigne = 0; indexLigne < this.nbLignes; indexLigne++) {
+            this.tableauLignes[indexLigne] = this.tableauLignes[indexLigne].trim();
+        }
     }
 
     public void validerSiSeulementLettres() {
@@ -27,6 +21,10 @@ public class TraiteurFichier {
 
     public void fichierVersLowerCase() {
 
+    }
+
+    public String[] getTableauLignes() {
+        return this.tableauLignes;
     }
 
 }
