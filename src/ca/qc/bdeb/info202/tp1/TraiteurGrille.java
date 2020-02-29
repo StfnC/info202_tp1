@@ -6,7 +6,19 @@ public class TraiteurGrille extends TraiteurFichier {
         super(matriceLignes);
     }
 
-    // TODO: validerCarree est la derniere validation a faire, il faut enlever les espaces et s'assurer qu'il y a juste des lettres avant
+    public boolean validerGrille() {
+        int drapeauValidation = 0;
+
+        if (!this.validerSiSeulementLettres()) {
+            drapeauValidation++;
+        }
+
+        if (!validerCarree()) {
+            drapeauValidation++;
+        }
+        // Si une des conditions de validation n'est pas valide, un drapeau aura ete emis et la grille n'est pas validee
+        return drapeauValidation == 0;
+    }
 
     public boolean validerCarree() {
         boolean grilleCarree = false;

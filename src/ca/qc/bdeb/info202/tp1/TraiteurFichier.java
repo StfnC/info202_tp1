@@ -7,6 +7,9 @@ public abstract class TraiteurFichier {
     public TraiteurFichier(String[] tableauLignes) {
         this.tableauLignes = tableauLignes;
         this.nbLignes = tableauLignes.length;
+
+        // On veut enlever les espaces des que le TraiteurFichier est cree pour eviter d'avoir a enlever les espaces dans le main
+        this.enleverEspaces();
     }
 
     public void enleverEspaces() {

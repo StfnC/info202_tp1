@@ -103,5 +103,7 @@ public class Tp1 {
         System.out.println(tg.validerCarree());
         System.out.println(tm.validerAuMoinsUnMot());
 
+        System.out.println(tg.validerGrille() + " " + tm.validerMots());
+
     }
 }
