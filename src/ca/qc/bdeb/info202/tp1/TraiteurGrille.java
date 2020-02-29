@@ -1,6 +1,12 @@
 package ca.qc.bdeb.info202.tp1;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 public class TraiteurGrille extends TraiteurFichier {
+    private static final String NOM_FICHIER_INTRUS = "intrus.txt";
+
     private char[][] matriceCaracteresGrille;
 
     public TraiteurGrille(String[] tableauLignes) {
@@ -98,8 +104,49 @@ public class TraiteurGrille extends TraiteurFichier {
         return motTrouve.equalsIgnoreCase(mot);
     }
 
-    public void trouverListeMotsDansGrille(TraiteurMots traiteurMots) {
+    public String[] trouverIntrus(TraiteurMots traiteurMots) {
+        // On cree une liste qui peut contenir autant d'intrus qu'il y a de mots dans la liste
+        String[] tableauIntrus = new String[traiteurMots.getNbLignes()];
+        int indexIntrus = 0;
 
+        for (String mot : traiteurMots.getTableauLignes()) {
+            if (!trouverMotDansGrille(mot)) {
+                tableauIntrus[indexIntrus] = mot;
+                indexIntrus++;
+            }
+        }
+        return tableauIntrus;
+    }
+
+    public void creerFichierIntrus(String[] tableauIntrus) {
+        try {
+            FileOutputStream fo = new FileOutputStream(NOM_FICHIER_INTRUS, false);
+            PrintWriter pw = new PrintWriter(fo);
+
+            if (tableauIntrus[0] == null) {
+                pw.println("Aucun intrus");
+            } else {
+                String motIntrus;
+                int indexIntrus = 0;
+
+                do {
+                    motIntrus = tableauIntrus[indexIntrus];
+
+                    if (motIntrus != null) {
+                        pw.println(motIntrus);
+                        indexIntrus++;
+                    }
+                } while (motIntrus != null);
+            }
+            pw.close();
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("File Not Found Exception");
+        }
+    }
+
+    public void traiterGrillePourIntrus(TraiteurMots traiteurMots) {
+        String[] intrus = trouverIntrus(traiteurMots);
+        creerFichierIntrus(intrus);
     }
 
     public boolean validerCarree() {

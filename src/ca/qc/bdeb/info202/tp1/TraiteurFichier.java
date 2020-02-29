@@ -8,8 +8,9 @@ public abstract class TraiteurFichier {
         this.tableauLignes = tableauLignes;
         this.nbLignes = tableauLignes.length;
 
-        // On veut enlever les espaces des que le TraiteurFichier est cree pour eviter d'avoir a enlever les espaces dans le main
+        // On veut enlever les espaces et uniformiser la casse des que le TraiteurFichier est cree pour eviter d'avoir a enlever les espaces dans le main
         this.enleverEspaces();
+        this.tableauVersMinuscules();
     }
 
     public void enleverEspaces() {

@@ -62,6 +62,7 @@ public class Tp1 {
     }
 
     public static void main(String[] args) {
+        // TODO: Test all the edge cases
         String mot = "allo";
         int tailleMot = mot.length();
         int ligne = 0;
@@ -103,5 +104,6 @@ public class Tp1 {
 
         System.out.println(tg.trouverMotDansGrille("courge"));
 
+        tg.traiterGrillePourIntrus(tm);
     }
 }
