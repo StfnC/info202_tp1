@@ -1,9 +1,10 @@
 package ca.qc.bdeb.info202.tp1;
 
 public class TraiteurGrille extends TraiteurFichier {
+    private char[][] matriceCaracteresGrille;
 
-    public TraiteurGrille(String[] matriceLignes) {
-        super(matriceLignes);
+    public TraiteurGrille(String[] tableauLignes) {
+        super(tableauLignes);
     }
 
     public boolean validerGrille() {
@@ -20,6 +21,87 @@ public class TraiteurGrille extends TraiteurFichier {
         return drapeauValidation == 0;
     }
 
+    public boolean trouverMotDansGrille(String mot) {
+        int tailleMot = mot.length();
+        int tailleGrille = this.matriceCaracteresGrille.length;
+        int drapeauMotDansGrille = 0;
+
+        for (int ligne = 0; ligne < tailleGrille; ligne++) {
+            for (int colonne = 0; colonne < tailleGrille; colonne++) {
+                if (this.matriceCaracteresGrille[ligne][colonne] == mot.charAt(0)) {
+                    boolean diagHautGaucheVersBasDroitePossible = (ligne + tailleMot <= tailleGrille && colonne + tailleMot <= tailleGrille);
+                    boolean diagBasDroiteVersHautGauchePossible = ((ligne + 1) - tailleMot >= 0 && (colonne + 1) - tailleMot >= 0);
+                    boolean diagBasGaucheVersHautDroitePossible = ((ligne + 1) - tailleMot >= 0 && colonne + tailleMot <= tailleGrille);
+                    boolean diagHautDroiteVersBasGauchePossible = (ligne + tailleMot <= tailleGrille && (colonne + 1) - tailleMot >= 0);
+
+                    if (diagHautGaucheVersBasDroitePossible) {
+                        if (chercherDiagHautGaucheVersBasDroite(mot, ligne, colonne)) {
+                            drapeauMotDansGrille++;
+                        }
+                    }
+                    if (diagBasDroiteVersHautGauchePossible) {
+                        if (chercherDiagBasDroiteVersHautGauche(mot, ligne, colonne)) {
+                            drapeauMotDansGrille++;
+                        }
+                    }
+                    if (diagBasGaucheVersHautDroitePossible) {
+                        if (chercherDiagBasGaucheVersHautDroite(mot, ligne, colonne)) {
+                            drapeauMotDansGrille++;
+                        }
+                    }
+                    if (diagHautDroiteVersBasGauchePossible) {
+                        if (chercherDiagHautDroiteVersBasGauche(mot, ligne, colonne)) {
+                            drapeauMotDansGrille++;
+                        }
+                    }
+                }
+
+            }
+        }
+        return drapeauMotDansGrille > 0;
+    }
+
+    public boolean chercherDiagHautGaucheVersBasDroite(String mot, int lignePremiereLettre, int colonnePremiereLettre) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mot.length(); i++) {
+            sb.append(this.matriceCaracteresGrille[lignePremiereLettre + i][colonnePremiereLettre + i]);
+        }
+        String motTrouve = sb.toString();
+
+        return motTrouve.equalsIgnoreCase(mot);
+    }
+
+    public boolean chercherDiagBasDroiteVersHautGauche(String mot, int lignePremiereLettre, int colonnePremiereLettre) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mot.length(); i++) {
+            sb.append(this.matriceCaracteresGrille[lignePremiereLettre - i][colonnePremiereLettre - i]);
+        }
+        String motTrouve = sb.toString();
+        return motTrouve.equalsIgnoreCase(mot);
+    }
+
+    public boolean chercherDiagBasGaucheVersHautDroite(String mot, int lignePremiereLettre, int colonnePremiereLettre) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mot.length(); i++) {
+            sb.append(this.matriceCaracteresGrille[lignePremiereLettre - i][colonnePremiereLettre + i]);
+        }
+        String motTrouve = sb.toString();
+        return motTrouve.equalsIgnoreCase(mot);
+    }
+
+    public boolean chercherDiagHautDroiteVersBasGauche(String mot, int lignePremiereLettre, int colonnePremiereLettre) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mot.length(); i++) {
+            sb.append(this.matriceCaracteresGrille[lignePremiereLettre + i][colonnePremiereLettre - i]);
+        }
+        String motTrouve = sb.toString();
+        return motTrouve.equalsIgnoreCase(mot);
+    }
+
+    public void trouverListeMotsDansGrille(TraiteurMots traiteurMots) {
+
+    }
+
     public boolean validerCarree() {
         boolean grilleCarree = false;
         for (String ligne : this.getTableauLignes()) {
@@ -29,6 +111,15 @@ public class TraiteurGrille extends TraiteurFichier {
             }
         }
         return grilleCarree;
+    }
+
+    public void creerMatriceCaracteresGrille() {
+        char[][] matriceCaracteresGrille = new char[this.getNbLignes()][this.getNbLignes()];
+        for (int i = 0; i < matriceCaracteresGrille.length; i++) {
+            // Chaque ligne de la matrice contient les lettres qui composent la ligne
+            matriceCaracteresGrille[i] = this.getTableauLignes()[i].toCharArray();
+        }
+        this.matriceCaracteresGrille = matriceCaracteresGrille;
     }
 
 }

@@ -86,11 +86,6 @@ public class Tp1 {
             System.out.println(ligneGrille);
         }
 
-        boolean diagHautGaucheVersBasDroitePossible = (ligne + tailleMot <= tailleGrille && colonne + tailleMot <= tailleGrille);
-        boolean diagBasDroiteVersHautGauchePossible = ((ligne + 1) - tailleMot >= 0 && (colonne + 1) - tailleMot >= 0);
-        boolean diagBasGaucheVersHautDroitePossible = ((ligne + 1) - tailleMot >= 0 && colonne + tailleMot <= tailleGrille);
-        boolean diagHautDroiteVersBasGauchePossible = (ligne + tailleMot <= tailleGrille && (colonne + 1) - tailleMot >= 0);
-
         System.out.println(tm.validerSiSeulementLettres());
         System.out.println(tg.validerSiSeulementLettres());
 
@@ -103,7 +98,10 @@ public class Tp1 {
         System.out.println(tg.validerCarree());
         System.out.println(tm.validerAuMoinsUnMot());
 
+        tg.creerMatriceCaracteresGrille();
         System.out.println(tg.validerGrille() + " " + tm.validerMots());
+
+        System.out.println(tg.trouverMotDansGrille("courge"));
 
     }
 }
