@@ -6,6 +6,7 @@ public class TraiteurGrille extends TraiteurFichier {
     public TraiteurGrille(String[] tableauLignes) {
         super(tableauLignes);
 
+        // Des qu'un TraiteurGrille est initialise, on cree la matrice contenant la grille sous forme de caracteres
         creerMatriceCaracteresGrille();
     }
 
@@ -16,7 +17,7 @@ public class TraiteurGrille extends TraiteurFichier {
             drapeauValidation++;
         }
 
-        if (!validerCarree()) {
+        if (!this.validerCarree()) {
             drapeauValidation++;
         }
         // Si une des conditions de validation n'est pas valide, un drapeau aura ete emis et la grille n'est pas validee
@@ -30,6 +31,12 @@ public class TraiteurGrille extends TraiteurFichier {
 
         for (int ligne = 0; ligne < tailleGrille; ligne++) {
             for (int colonne = 0; colonne < tailleGrille; colonne++) {
+                /*
+                Cette section permet de verifier si un mot peut se retrouver dans une des 4 diagonales.
+                On regarde si le caractere a la position observee correspond a la 1ere lettre du mot.
+                Ensuite, dependament de la diagonale, on regarde si on peut faire entre le mot dans le tableau en additionnant/soustrayant
+                la taille du mot avec l'indice de la ligne et de la colonne du caractere.
+                */
                 if (this.matriceCaracteresGrille[ligne][colonne] == mot.charAt(0)) {
                     boolean diagHautGaucheVersBasDroitePossible = (ligne + tailleMot <= tailleGrille && colonne + tailleMot <= tailleGrille);
                     boolean diagBasDroiteVersHautGauchePossible = ((ligne + 1) - tailleMot >= 0 && (colonne + 1) - tailleMot >= 0);
@@ -115,7 +122,7 @@ public class TraiteurGrille extends TraiteurFichier {
     }
 
     public boolean validerCarree() {
-        boolean grilleCarree = false;
+        boolean grilleCarree = true;
         for (String ligne : this.getTableauLignes()) {
             grilleCarree = ligne.length() == this.getNbLignes();
             if (!grilleCarree) {

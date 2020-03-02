@@ -3,7 +3,6 @@ package ca.qc.bdeb.info202.tp1;
 import java.io.*;
 
 public class Tp1 {
-
     public static final String NOM_FICHIER_GRILLE = "grille.txt";
     public static final String NOM_FICHIER_MOTS = "mots.txt";
     private static final String NOM_FICHIER_INTRUS = "intrus.txt";
@@ -15,12 +14,12 @@ public class Tp1 {
 
     public static int nombreLignesFichier(String nomFichier) {
         int nbLignes = 0;
+
         try {
             FileReader fr = new FileReader(nomFichier);
             BufferedReader br = new BufferedReader(fr);
 
             String ligne;
-
             do {
                 ligne = br.readLine();
                 if (ligne != null) {
@@ -29,7 +28,6 @@ public class Tp1 {
             } while (ligne != null);
 
             br.close();
-
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
@@ -52,16 +50,13 @@ public class Tp1 {
 
             do {
                 ligne = br.readLine();
-
                 if (ligne != null) {
                     tableauLignes[indexLigne] = ligne;
                     indexLigne++;
                 }
-
             } while (ligne != null);
 
             br.close();
-
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
@@ -121,8 +116,8 @@ public class Tp1 {
                     String[] tableauIntrus = traiteurGrille.trouverIntrus(traiteurMots);
                     creerFichierIntrus(tableauIntrus);
                     System.out.println("Recherche des intrus...OK\n" +
-                            "Les intrus trouvés sont dans le fichier intrus.txt\n" +
-                            "Traitement terminé");
+                                        "Les intrus trouvés sont dans le fichier intrus.txt\n" +
+                                        "Traitement terminé");
                 } else {
                     System.out.println("La liste de mots n'est pas valide");
                 }
