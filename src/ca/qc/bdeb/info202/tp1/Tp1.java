@@ -15,11 +15,12 @@ public class Tp1 {
     public static int nombreLignesFichier(String nomFichier) {
         int nbLignes = 0;
 
-        try {
-            FileReader fr = new FileReader(nomFichier);
-            BufferedReader br = new BufferedReader(fr);
+        try (
+                FileReader fr = new FileReader(nomFichier);
+                BufferedReader br = new BufferedReader(fr)) {
 
             String ligne;
+
             do {
                 ligne = br.readLine();
                 if (ligne != null) {
@@ -27,7 +28,6 @@ public class Tp1 {
                 }
             } while (ligne != null);
 
-            br.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
@@ -41,9 +41,9 @@ public class Tp1 {
         int nbLignesDansFichier = nombreLignesFichier(nomFichier);
         String[] tableauLignes = new String[nbLignesDansFichier];
 
-        try {
-            FileReader fr = new FileReader(nomFichier);
-            BufferedReader br = new BufferedReader(fr);
+        try (
+                FileReader fr = new FileReader(nomFichier);
+                BufferedReader br = new BufferedReader(fr)){
 
             String ligne;
             int indexLigne = 0;
@@ -56,7 +56,6 @@ public class Tp1 {
                 }
             } while (ligne != null);
 
-            br.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
         } catch (IOException ioe) {
@@ -67,9 +66,9 @@ public class Tp1 {
     }
 
     public static void creerFichierIntrus(String[] tableauIntrus) {
-        try {
-            FileOutputStream fo = new FileOutputStream(NOM_FICHIER_INTRUS, false);
-            PrintWriter pw = new PrintWriter(fo);
+        try (
+                FileOutputStream fo = new FileOutputStream(NOM_FICHIER_INTRUS, false);
+                PrintWriter pw = new PrintWriter(fo)){
 
             if (tableauIntrus[0] == null) {
                 pw.println("Aucun intrus");
@@ -86,9 +85,11 @@ public class Tp1 {
                     }
                 } while (motIntrus != null);
             }
-            pw.close();
+
         } catch (FileNotFoundException fnfe) {
             System.out.println("File Not Found Exception");
+        } catch (IOException ioe) {
+            System.out.println("IO Exception");
         }
     }
 
