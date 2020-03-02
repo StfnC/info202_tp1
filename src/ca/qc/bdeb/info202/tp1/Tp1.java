@@ -92,10 +92,7 @@ public class Tp1 {
         }
     }
 
-    // TODO: NE PAS OUBLIER DE FAIRE AUTO-EVALUATION DU PROGRAMME
-
     public static void main(String[] args) {
-        // TODO: Test all the edge cases
         if (verifierQueFichierExiste(NOM_FICHIER_GRILLE) && verifierQueFichierExiste(NOM_FICHIER_MOTS)) {
             System.out.println("Démarage");
 
